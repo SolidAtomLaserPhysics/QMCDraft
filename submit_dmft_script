@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -t 01:00:00
-#SBATCH -N 10
+#SBATCH -t 10:00:00
+#SBATCH -N 1
 #SBATCH --ntasks-per-node 96
-#SBATCH -p standard96:test
+#SBATCH -p standard96
 #SBATCH -A hhpnhytt
 
 module load gcc/9.2.0 openmpi/gcc.9/2.1.6 fftw3/ompi/gcc/3.3.8 nfft/gcc/3.5.1 anaconda3/2019.10 hdf5/gcc.8/1.10.5

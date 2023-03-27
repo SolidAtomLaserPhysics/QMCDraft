@@ -90,7 +90,7 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
       do i = 1, q									!last iterate over i and j, so over the matrix indices from 0 to (q-1), i is row, j is column
             do j = 1, q
                if ((i == q) .and. (j == 1)) then
-                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(-Xi*ky*q) * cos(kx * (2 * pi * B * (q - 1)))						!bottom left
+                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(-Xi*ky*q) * cos(kx + (2 * pi * B * (q - 1)))						!bottom left
                END IF
                if ((i == 1) .and. (j == q)) then
                   TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(Xi*ky*q)	* cos(kx)								!top right
