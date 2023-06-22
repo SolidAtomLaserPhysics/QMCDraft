@@ -35,7 +35,7 @@ if __name__ == "__main__":
     prepareForCalculation = False
 
     QMCCalculationDirectory = '/scratch/usr/hhpnhytt/finalQMCResults'
-    QMCDraftDirectory = '/scratch/usr/hhpnhytt/finalQMCResults/Draft'
+    QMCDraftDirectory = '/scratch/usr/hhpnhytt/finalQMCResults/QMCDraft'
 
     for u in U:
         for mu in Mu:
