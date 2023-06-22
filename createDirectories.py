@@ -8,10 +8,11 @@ import os
 changes the submit script to 5 Nodes for the calculation
 '''
 def createDirectories(path):
-    os.mkdir(path)
+    if not os.path.exists(path):                                  #make directory if not exists already
+        os.mkdir(path)
 
 
-def createFilesInDirectories(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCalculationDirectory):
+def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCalculationDirectory):
     if q == 3:
         with open(QMCDraftDirectory + '/Parameters_Q3.in', 'r', encoding='utf-8') as file:
             data = file.readlines()
@@ -45,7 +46,7 @@ def createFilesInDirectories(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory
             data[41] = "Nmeas           = 1e5   \n"
             data[42] = "NCorr           = 20 #-> Wie viele Schritte zwischen zwei Messungen. \n"
     
-    with open('Parameters.in', 'w', encoding='utf-8') as file:
+    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
         file.writelines(data)
 
 
@@ -53,8 +54,7 @@ def createFilesInDirectories(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory
 
 
     #now copy the FortranCode and change what to change
-    #symmetry, q=L and processors dependent on Ns
-def createFortranCode(q, QMCDraftDirectory, QMCCalculationDirectory,
+def createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory,
                       beta, u, mu,t,tPri,tPriPri):
     with open(QMCDraftDirectory + '/hofstadter_hamiltonian.f90', 'r', encoding='utf-8') as file:           #calculate ED results on /scratch
         dataFortran = file.readlines()
@@ -65,34 +65,42 @@ def createFortranCode(q, QMCDraftDirectory, QMCCalculationDirectory,
         dataFortran[9] = "  real(kind=8), parameter :: t={}d0  \n".format(tPri)
         dataFortran[10] = "  real(kind=8), parameter :: t={}d0  \n".format(tPriPri)
         
-    with open(QMCCalculationDirectory + 'finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/hofstadter_hamiltonian.f90'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/hofstadter_hamiltonian.f90'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
         file.writelines(dataFortran)
 
 
 
 
+# can change running time and number of cores here
+def createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri):
+    with open(QMCDraftDirectory + '/submit_dmft_script', 'r', encoding='utf-8') as file:
+        dataSubmit = file.readlines()
+    
+        dataSubmit[1] = "#SBATCH -t 4:00:00           \n"
+        dataSubmit[2] = "#SBATCH -N 1   \n"
+        dataSubmit[16] = "mpirun -np 96 /home/hhpnhytt/w2dynamics/DMFT.py       \n"
+    
+    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/submit_dmft_script'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+        file.writelines(dataSubmit)
 
-if __name__ == "__main__":
-    U = [1.5, 3.0]
-    Mu = [1.0]
-    Beta = [30.0, 70.0]
-    Q = [3]
-    T = [0.25]
-    TPrime = [0.025]
-    TPrimePrime = [0.0]
 
-    QMCCalculationDirectory = '/scratch/usr/hhpnhytt/finalEDResults/finalQMC'
-    QMCDraftDirectory = '/scratch/usr/hhpnhytt/finalQMCResults/Draft'
 
-    for u in U:
-        for mu in Mu:
-            for beta in Beta:
-                for q in Q:
-                    for t in T:
-                        for tPri in TPrime:
-                            for tPriPri in TPrimePrime:
-                                createDirectories(QMCCalculationDirectory + "/U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}".format(u, mu, beta, q, t, tPri, tPriPri))
-                                createFilesInDirectories(u, mu, beta, q, t, tPri, tPriPri, QMCCalculationDirectory)
+
+#just copy the run.sh
+def createRun(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri):
+    with open(QMCDraftDirectory + '/run.sh', 'r', encoding='utf-8') as file:
+        dataRun = file.readlines()
+    
+    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/run.sh'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+        file.writelines(dataRun)
+
+#def createProduction(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri):
+#    with open(QMCDraftDirectory + '/changeToProductionStyle.py', 'r', encoding='utf-8') as file:
+#        dataProd = file.readlines()
+#    
+#    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/changeToProductionStyle.py'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+#        file.writelines(dataProd)
+    
 
 
 
