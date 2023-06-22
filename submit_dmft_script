@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -t 10:00:00
-#SBATCH -N 1
+#SBATCH -N 1 
 #SBATCH --ntasks-per-node 96
 #SBATCH -p standard96
 #SBATCH -A hhpnhytt
@@ -14,4 +14,4 @@ export MKL_NUM_THREADS=1
 export OMP_NUM_THREADS=1
 export OPENBLAS_NUM_THREADS=1
 
-mpirun -np 960 /home/hhpnhytt/w2dynamics/DMFT.py
+mpirun -np 96 /home/hhpnhytt/w2dynamics/DMFT.py 

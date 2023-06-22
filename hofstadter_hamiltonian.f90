@@ -45,7 +45,7 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
   FormatString='('//trim(adjustl(FormatString))//'f22.17)'
   !initialize output data of epsilon matrix
   open(10,file="Hk_Hofstadter.dat",form="formatted",status="replace")
-  write(10,'(3I6)')4*ksteps*(ksteps/q),q,q
+  write(10,'(3I6)')ksteps*(ksteps/q),q,q
 
 
   B = dfloat(p)/dfloat(q)
