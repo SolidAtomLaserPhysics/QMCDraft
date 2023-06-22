@@ -64,8 +64,8 @@ def createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory,
         dataFortran[5] = "  integer, parameter :: q={}   \n".format(q)
 
         dataFortran[8] = "  real(kind=8), parameter :: t={}d0   \n".format(t)
-        dataFortran[9] = "  real(kind=8), parameter :: t={}d0  \n".format(tPri)
-        dataFortran[10] = "  real(kind=8), parameter :: t={}d0  \n".format(tPriPri)
+        dataFortran[9] = "  real(kind=8), parameter :: t1={}d0  \n".format(tPri)
+        dataFortran[10] = "  real(kind=8), parameter :: t2={}d0  \n".format(tPriPri)
         
     with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/hofstadter_hamiltonian.f90'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
         file.writelines(dataFortran)
