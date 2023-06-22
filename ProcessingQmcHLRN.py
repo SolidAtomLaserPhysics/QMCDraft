@@ -45,7 +45,7 @@ if __name__ == "__main__":
                         for tPri in TPrime:
                             for tPriPri in TPrimePrime:           
                                 if createDirectories:
-                                    CreateDir.createDirectories(QMCCalculationDirectory + "/U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}".format(u, mu, beta, q, t, tPri, tPriPri))
+                                    CreateDir.createDirectories(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))
                                     CreateDir.createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCCalculationDirectory)
                                     CreateDir.createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory, beta, u, mu,t,tPri,tPriPri)
                                     CreateDir.createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
@@ -67,6 +67,8 @@ if __name__ == "__main__":
 
 
                                 if prepareForCalculation:
+                                    #have to find the correct slurm file name for each folder
+                                    slurmName = 'a'
                                     #get Ncorr
                                     os.chdir(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))
                                     x = subprocess.check_output(['julia /scratch/projects/hhp00048/codes/scripts/LadderDGA_utils/ncorr.jl {}'.format(slurmName)])
