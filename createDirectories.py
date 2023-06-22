@@ -32,7 +32,7 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCal
         file.writelines(data)
     
     if q == 4:
-        with open(QMCCalculationDirectory + '/Parameters_Q4.in', 'r', encoding='utf-8') as file:
+        with open(QMCDraftDirectory + '/Parameters_Q4.in', 'r', encoding='utf-8') as file:
             data = file.readlines()
     
             data[2] = "NAt             = 4 #q des Magnetfeldes p/q      \n"
