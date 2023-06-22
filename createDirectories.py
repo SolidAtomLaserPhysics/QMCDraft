@@ -94,12 +94,13 @@ def createRun(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPr
     with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/run.sh'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
         file.writelines(dataRun)
 
-#def createProduction(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri):
-#    with open(QMCDraftDirectory + '/changeToProductionStyle.py', 'r', encoding='utf-8') as file:
-#        dataProd = file.readlines()
-#    
-#    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/changeToProductionStyle.py'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
-#        file.writelines(dataProd)
+#NOTE: copy production but better should write it into ProcessingQmcHLRN itself
+def createProduction(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri):
+    with open(QMCDraftDirectory + '/changeToProductionStyle.py', 'r', encoding='utf-8') as file:
+        dataProd = file.readlines()
+    
+    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/changeToProductionStyle.py'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+        file.writelines(dataProd)
     
 
 

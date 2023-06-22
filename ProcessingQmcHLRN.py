@@ -4,8 +4,8 @@ import pandas as pd
 import os
 import subprocess
 
-import createDirectories.py as CreateDir
-import changeToProductionStyle.py as changeToProd
+import createDirectories as CreateDir
+import changeToProductionStyle as changeToProd
 
 
 
@@ -46,11 +46,11 @@ if __name__ == "__main__":
                             for tPriPri in TPrimePrime:           
                                 if createDirectories:
                                     CreateDir.createDirectories(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))
-                                    CreateDir.createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCCalculationDirectory)
+                                    CreateDir.createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCalculationDirectory)
                                     CreateDir.createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory, beta, u, mu,t,tPri,tPriPri)
                                     CreateDir.createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
                                     CreateDir.createRun(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
-                                    CreateDir.createProduction(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
+                                    #CreateDir.createProduction(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
 
 
                                     #makes that run.sh runable
