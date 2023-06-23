@@ -21,12 +21,12 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCal
             data[5] = "beta            = {} #-> In Einheiten 1/t.     \n".format(beta)  
             data[7] = "mu              = {}         \n".format(mu) 
             data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri)
-            data[11] = "DMFTsteps       = 3 #-> Anzahl der DMFT loops     \n"
+            data[11] = "DMFTsteps       = 20 #-> Anzahl der DMFT loops     \n"
             data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri)
             data[23] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[31] = "Udd             = {} #-> Hubbard U     \n".format(u)
-            data[37] = "Nmeas           = 1e5   \n"
+            data[37] = "Nmeas           = 1e6   \n"
             data[38] = "NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen. \n"
         with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
             file.writelines(data)
@@ -39,14 +39,14 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCal
             data[5] = "beta            = {} #-> In Einheiten 1/t.     \n".format(beta)  
             data[7] = "mu              = {}         \n".format(mu) 
             data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri)
-            data[11] = "DMFTsteps       = 3 #-> Anzahl der DMFT loops     \n"
+            data[11] = "DMFTsteps       = 20 #-> Anzahl der DMFT loops     \n"
             data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri)
             data[23] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[31] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[35] = "Udd             = {} #-> Hubbard U     \n".format(u)
-            data[41] = "Nmeas           = 1e5   \n"
-            data[42] = "NCorr           = 20 #-> Wie viele Schritte zwischen zwei Messungen. \n"
+            data[41] = "Nmeas           = 1e6   \n"
+            data[42] = "NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen. \n"
     
         with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
             file.writelines(data)
@@ -80,7 +80,7 @@ def createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,
     
         dataSubmit[1] = "#SBATCH -t 1:00:00           \n"
         dataSubmit[2] = "#SBATCH -N 1   \n"
-        dataSubmit[4] = "#SBATCH -p standard96:test      \n"
+        dataSubmit[4] = "#SBATCH -p standard96:test      \n"                                                        #Are in the testqueue now!
         dataSubmit[16] = "mpirun -np 96 /home/hhpnhytt/w2dynamics/DMFT.py       \n"
     
     with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/submit_dmft_script'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:

@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
 #little testing values
     U = [1.5]
-    Mu = [1.0]
+    Mu = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
     Beta = [50.0]
     Q = [3]
     T = [0.25]
@@ -67,12 +67,15 @@ if __name__ == "__main__":
 
 
                                 if prepareForCalculation:
-                                    #have to find the correct slurm file name for each folder
-                                    slurmName = 'a'
                                     #get Ncorr
+                                    hdf5Name = 'U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFTPreCalc.hdf5'.format(u,mu,beta,q,t,tPri,tPriPri)
                                     os.chdir(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))
-                                    x = subprocess.check_output(['julia /scratch/projects/hhp00048/codes/scripts/LadderDGA_utils/ncorr.jl {}'.format(slurmName)])
-                                    os.system('julia /scratch/projects/hhp00048/codes/scripts/LadderDGA_utils/ncorr.jl U2.0_mu1.0_beta30.0_DMFT-2023-03-15-Wed-14-41-21.hdf5')
+                                    #rename hdf5 from last calc to an easier name
+                                    os.system('mv *.hdf5 {}'.format(hdf5Name))
+                                    x = subprocess.check_output(['julia /scratch/projects/hhp00048/codes/scripts/LadderDGA_utils/ncorr.jl {}'.format(hdf5Name)])
+                                    
+                                    
+                                    #os.system('julia /scratch/projects/hhp00048/codes/scripts/LadderDGA_utils/ncorr.jl U2.0_mu1.0_beta30.0_DMFT-2023-03-15-Wed-14-41-21.hdf5')
 
 
 
