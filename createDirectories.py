@@ -27,9 +27,9 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCal
             data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[31] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[37] = "Nmeas           = 1e5   \n"
-            data[38] = "NCorr           = 20 #-> Wie viele Schritte zwischen zwei Messungen. \n"
-    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters_Q3.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
-        file.writelines(data)
+            data[38] = "NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen. \n"
+        with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+            file.writelines(data)
     
     if q == 4:
         with open(QMCDraftDirectory + '/Parameters_Q4.in', 'r', encoding='utf-8') as file:
@@ -48,8 +48,8 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCal
             data[41] = "Nmeas           = 1e5   \n"
             data[42] = "NCorr           = 20 #-> Wie viele Schritte zwischen zwei Messungen. \n"
     
-    with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters_Q4.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
-        file.writelines(data)
+        with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:
+            file.writelines(data)
 
 
 
@@ -78,8 +78,9 @@ def createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,
     with open(QMCDraftDirectory + '/submit_dmft_script', 'r', encoding='utf-8') as file:
         dataSubmit = file.readlines()
     
-        dataSubmit[1] = "#SBATCH -t 4:00:00           \n"
+        dataSubmit[1] = "#SBATCH -t 1:00:00           \n"
         dataSubmit[2] = "#SBATCH -N 1   \n"
+        dataSubmit[4] = "#SBATCH -p standard96:test      \n"
         dataSubmit[16] = "mpirun -np 96 /home/hhpnhytt/w2dynamics/DMFT.py       \n"
     
     with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}/submit_dmft_script'.format(u,beta,q,mu,t,tPri,tPriPri), 'w', encoding='utf-8') as file:

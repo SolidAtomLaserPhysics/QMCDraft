@@ -9,7 +9,7 @@ mu              = 1.000000000000000000
 #EPSN           = 0.0                                                                                                                                                                         
 #readold         = -1 #-> Im ersten Schritt auskommentieren, sagt mir wo ich bei Abbruch weiterrechnen soll. -1 ist z.B. die letzte Iteration wenn die Rechnung durchgelaufen ist.             
 #fileold         = U2.0_mu1.0_beta30.0_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.                                           
-DMFTsteps       = 3 #-> Anzahl der DMFT loops       
+DMFTsteps       = 20 #-> Anzahl der DMFT loops       
 #StatisticSteps  = 1 #-> 1 berechnet den Vertex. Für die DMFT Rechnung auf 0 setzen. Für \xhi_phys auf 1 und MeasSusz (siehe unten) auf 1 (aber ohne Parameter für 2-Teilchen Rechnung).      
 magnetism       = para                                                                                                                                                                        
 FileNamePrefix  = U2.0_mu1.0_beta30.0_DMFT                                                                                                                                                   
@@ -35,8 +35,8 @@ Udd             = 2.0 #-> Hubbard U
 Eigenbasis      = 1                                                                                                                                                                           
                                                                                                                                                                                               
 Nwarmups        = 1e7                                                                                                                                                                         
-Nmeas           = 1e6   
-NCorr           = 20 #-> Wie viele Schritte zwischen zwei Messungen.                                                                                                                         
+Nmeas           = 1e5   
+NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen.                                                                                                                         
                                                                                                                                                                                               
 NLookup_nfft    = 10000000                                                                                                                                                                     
                                                                                                                                                                                               
