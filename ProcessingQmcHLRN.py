@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
 #little testing values
     U = [1.5]
-    Mu = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
+    Mu = [-2.0, -1.8, -1.6, -1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
     Beta = [50.0]
     Q = [3]
     T = [0.25]
@@ -34,8 +34,8 @@ if __name__ == "__main__":
     preCalculation = True
     prepareForCalculation = False
 
-    QMCCalculationDirectory = '/scratch/usr/hhpnhytt/finalQMCResults'
-    QMCDraftDirectory = '/scratch/usr/hhpnhytt/finalQMCResults/QMCDraft'
+    QMCCalculationDirectory = '/scratch/usr/hhpnhytt/finalQMC/QMCFindMu'
+    QMCDraftDirectory = '/scratch/usr/hhpnhytt/finalQMC/QMCDraft'
 
     for u in U:
         for mu in Mu:
