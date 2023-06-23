@@ -31,8 +31,8 @@ if __name__ == "__main__":
     TPrimePrime = [0.025]
 
     createDirectories = True
-    preCalculation = True
-    prepareForAndDoNextCalculation = False
+    preCalculation = False
+    prepareForAndDoNextCalculation = True
     extractResults = False
     plotResults = False
 
