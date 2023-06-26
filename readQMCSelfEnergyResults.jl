@@ -28,4 +28,4 @@ MatsubaraFreq = Frequencies[800:1200]
 
 vv = [MatsubaraFreq RealPart[1] ImagPart[1]]
 
-writedlm("self-en_wim_QMC-beta$(Beta)_U$(U)_P$(P)_L$(L).csv", vv)
+writedlm(QMCCalculationDirectory + "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/self-en_wim_QMC-U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).csv", vv)

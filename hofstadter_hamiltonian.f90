@@ -90,16 +90,16 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
       do i = 1, q									!last iterate over i and j, so over the matrix indices from 0 to (q-1), i is row, j is column
             do j = 1, q
                if ((i == q) .and. (j == 1)) then
-                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(-Xi*ky*q) * cos(kx + (2 * pi * B * (q - 1)))						!bottom left
+                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(-Xi*ky*q) * cos(kx + (2 * pi * B * (q - 0.5)))						!bottom left
                END IF
                if ((i == 1) .and. (j == q)) then
-                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(Xi*ky*q)	* cos(kx)								!top right
+                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1*exp(Xi*ky*q)	* cos(kx - pi * B)								!top right
                END IF
                if (i == (j - 1)) then									
-                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1 * cos(kx + (2 * pi * B * i)) 		 								!upper next to diagonale
+                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1 * cos(kx + (2 * pi * B * ((i-1) + 0.5))) 		 								!upper next to diagonale
                END IF
                if (i == (j + 1)) then									
-                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1 * cos(kx + (2 * pi * B * j)) 		 								!lower next to diagonale
+                  TPrimeMatrix(i,j) = TPrimeMatrix(i,j) + 2 * t1 * cos(kx + (2 * pi * B * ((i-2) + 0.5))) 		 								!lower next to diagonale
                END IF
             end do
       end do	

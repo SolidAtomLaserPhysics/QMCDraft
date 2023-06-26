@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
 #little testing values
     U = [1.5]
-    Mu = [4.0]
+    Mu = [-2.0, -1.8, -1.6, -1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
     Beta = [50.0]
     Q = [3]
     T = [0.25]
@@ -31,8 +31,8 @@ if __name__ == "__main__":
     TPrimePrime = [0.025]
 
     createDirectories = True
-    preCalculation = False
-    prepareForAndDoNextCalculation = True
+    preCalculation = True
+    prepareForAndDoNextCalculation = False
     extractResults = False
     plotResults = False
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                                     os.system('sbatch submit_dmft_script' )
 
 
-
+                                #TODO: path to get nCorr seems incorrect?
 
                                 '''
                                 prepare and do the next calculation
