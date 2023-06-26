@@ -53,10 +53,15 @@ if __name__ == "__main__":
                                 '''          
                                 if createDirectories:
                                     CreateDir.createDirectories(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))
+                                    print("dir created")
                                     CreateDir.createParameters(u, mu, beta, q, t, tPri, tPriPri, QMCDraftDirectory, QMCCalculationDirectory)
+                                    print("parameters.in created")
                                     CreateDir.createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory, beta, u, mu,t,tPri,tPriPri)
+                                    print("epsilon Matrix created")
                                     CreateDir.createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
+                                    print("submit created")
                                     CreateDir.createRun(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
+                                    print("run.sh created")
 
                                     #makes that run.sh runable
                                     #switches to that directory, since cd does not work with subprocess
@@ -64,8 +69,8 @@ if __name__ == "__main__":
                                     os.chdir(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))                      
                                     os.system('chmod +x run.sh')
                                     os.system('./run.sh')           #now have epsilonMatrix as .dat file
-                                    
-                                    print(6)
+
+                                    print("epsilon Matrix calculated")
 
 
 
