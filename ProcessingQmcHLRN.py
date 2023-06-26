@@ -64,6 +64,8 @@ if __name__ == "__main__":
                                     os.chdir(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}'.format(u,beta,q,mu,t,tPri,tPriPri))                      
                                     os.system('chmod +x run.sh')
                                     os.system('./run.sh')           #now have epsilonMatrix as .dat file
+                                    
+                                    print(6)
 
 
 
