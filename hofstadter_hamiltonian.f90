@@ -4,7 +4,7 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
 
   integer, parameter :: p=1
   integer, parameter :: q=3
-  integer, parameter :: ksteps=100
+  integer, parameter :: ksteps=200
   real(kind=8), parameter :: pi=3.141592653589793238440d0
   real(kind=8), parameter :: t=0.250d0
   real(kind=8), parameter :: t1= 0.0d0

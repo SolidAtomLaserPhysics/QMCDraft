@@ -6,6 +6,8 @@ import subprocess
 
 import createDirectories as CreateDir
 import changeToProductionStyle as changeToProd
+import extractQMCResults as extract
+import PlottingQMC as plot
 
 
 
@@ -23,14 +25,15 @@ if __name__ == "__main__":
 
 #little testing values
     U = [1.5]
-    Mu = [-2.0, -1.8, -1.6, -1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
+    #Mu = [-2.0, -1.8, -1.6, -1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
+    Mu = [-1.0, 0.0, 1.0, 2.0]
     Beta = [50.0]
     Q = [3]
     T = [0.25]
     TPrime = [-0.05]                                                   
     TPrimePrime = [0.025]
 
-    createDirectories = True
+    createDirectories = False
     preCalculation = True
     prepareForAndDoNextCalculation = False
     extractResults = False
@@ -41,12 +44,12 @@ if __name__ == "__main__":
     QMCHDF5BackupFolder = '/scratch/usr/hhpnhytt/finalQMC/HDF5BackupFolder'
 
     for u in U:
-        for mu in Mu:
-            for beta in Beta:
-                for q in Q:
-                    for t in T:
-                        for tPri in TPrime:
-                            for tPriPri in TPrimePrime: 
+        for beta in Beta:
+            for q in Q:
+                for t in T:
+                    for tPri in TPrime:
+                        for tPriPri in TPrimePrime: 
+                            for mu in Mu:
                                 '''
                                 all directories and files will be generated and put into its folder
                                 after this, everything is ready to start the Calculation
@@ -111,14 +114,18 @@ if __name__ == "__main__":
 
 
                                 if extractResults:
-                                    #TODO:  still need to implement to extract selfenergy with that julia script
-                                    #       extract density (with julia script)
-                                    pass
+                                    #TODO:  extract density (with julia script)
+                                    #       
+                                    extract.extractSelfEnergy(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri)
+                                    extract.extractDensity(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri)
 
-                                if plotResults:
-                                    #TODO: plot self energy
-                                    #       plot density
-                                    pass
+
+                            if plotResults:
+                                #TODO: plot self energy
+                                #       plot density
+                                for mu in Mu:
+                                    plot.plotSigmaQMC(QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri)
+                                plot.plotDensityQMC(QMCCalculationDirectory, u,beta,q,Mu,t,tPri,tPriPri)
 
 
 

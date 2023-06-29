@@ -13,7 +13,7 @@ tPrimePrime = ARGS[7]
 QMCCalculationDirectory = ARGS[8]
 
 
-fileName = QMCCalculationDirectory + "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/U$(U)_mu$(mu)_B$(Beta)_L$(q)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).hdf5"
+fileName = QMCCalculationDirectory * "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/U$(U)_mu$(mu)_B$(Beta)_L$(q)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).hdf5"
 
 
 f = h5open(fileName, "r")
@@ -28,4 +28,4 @@ MatsubaraFreq = Frequencies[800:1200]
 
 vv = [MatsubaraFreq RealPart[1] ImagPart[1]]
 
-writedlm(QMCCalculationDirectory + "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/self-en_wim_QMC-U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).csv", vv)
+writedlm(QMCCalculationDirectory + "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/self-en_wim_QMC-U$(U)_B$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).csv", vv)

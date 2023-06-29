@@ -19,17 +19,17 @@ FTType          = none #-> Ergebnis wird durch Legendre Polynome dargestellt. Si
                                                                                                                                                                                               
 [Atoms]                                                                                                                                                                                       
 [[1]]                                                                                                                                                                                         
-Hamiltonian     = Density                                                                                                                                                                     
+Hamiltonian     = Density               
 Nd              = 1                                                                                                                                                                           
 Udd             = 2.0 #-> Hubbard U                                                                                                                                                           
 [[2]]                                                                                                                                                                                         
 Hamiltonian     = Density                                                                                                                                                                     
 Nd              = 1                                                                                                                                                                           
-Udd             = 2.0 #-> Hubbard U                                                                                                                                                           
+Udd             = 2.0 #-> Hubbard U   
 [[3]]                                                                                                                                                                                         
 Hamiltonian     = Density                                                                                                                                                                     
 Nd              = 1                                                                                                                                                                           
-Udd             = 2.0 #-> Hubbard U                                                                                                                                                           
+Udd             = 2.0 #-> Hubbard U   
                                                                                                                                                                                               
 [QMC]                                                                                                                                                                                         
 Eigenbasis      = 1                                                                                                                                                                           
