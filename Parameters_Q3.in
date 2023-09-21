@@ -1,7 +1,7 @@
 [General]                                                                                                                                                                                     
 DOS             = ReadIn                                                                                                                                                                      
 NAt             = 3 #q des Magnetfeldes p/q                                                                                                                                                                          
-EPSEQ           = 1e-6                                                                                                                                                                        
+EPSEQ           = 0.00001                                                                                                                                                                       
 HkFile          = Hk_Hofstadter.dat #-> aender auf meinen Fall.                                                                                                                               
 beta            = 30.0 #-> In Einheiten 1/t.                                                                                                                                                  
 #totdens        = 1.0  # el/d-at                                                                                                                                                              
@@ -21,7 +21,7 @@ FTType          = none #-> Ergebnis wird durch Legendre Polynome dargestellt. Si
 [[1]]                                                                                                                                                                                         
 Hamiltonian     = Density               
 Nd              = 1                                                                                                                                                                           
-Udd             = 2.0 #-> Hubbard U                                                                                                                                                           
+Udd             = 2.0 #-> Hubbard U                                                                                                                                                                    
 [[2]]                                                                                                                                                                                         
 Hamiltonian     = Density                                                                                                                                                                     
 Nd              = 1                                                                                                                                                                           
@@ -38,12 +38,12 @@ Nwarmups        = 1e7
 Nmeas           = 1e5   
 NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen.                                                                                                                         
                                                                                                                                                                                               
-NLookup_nfft    = 10000000                                                                                                                                                                     
+NLookup_nfft    = 10000000       #wirklich der hoechste Wert ohne Crash!!!                                                                                                                                                              
                                                                                                                                                                                               
 Ntau            = 2000           # # of points in tau  ->  Nur für Ausgabe wichtig!                                                                                                            
 Niw             = 1000           # # of matsubara freq.                                                                                                                                        
 #Nftau           = 701                                                                                                                                                                        
-NLegMax         = 1             # Max number of Legendre Polys                                                                                                                                
+#NLegMax         = 1             # Max number of Legendre Polys                                                                                                                                
 #NLegOrder      = 30            # order used
                                                                                                                                                                                               
 MeasGiw = 1  # -> G(i\omega) wird gemessen.                                                                                                                                                   
@@ -54,4 +54,4 @@ MeasGiw = 1  # -> G(i\omega) wird gemessen.
 #N4iwf = 50 #-> Anzahl fermionischer Frequenzen für 2-Teilchen GF.                                                                                                                            
 #N4iwb = 0 #-> Anzahl bosonischer Frequenzen für 2-Teilchen GF.                                                                                                                               
                                                                                                                                                                                               
-#segment=1
+segment=1

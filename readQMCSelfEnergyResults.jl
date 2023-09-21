@@ -4,16 +4,17 @@ using DelimitedFiles
 
 
 U = ARGS[1]
-Beta = 3ARGS[2]
+Beta = ARGS[2]
 q = ARGS[3]
 mu = ARGS[4]
 t = ARGS[5]
 tPrime = ARGS[6]
 tPrimePrime = ARGS[7]
-QMCCalculationDirectory = ARGS[8]
+kSteps = ARGS[8]
+QMCCalculationDirectory = ARGS[9]
 
-
-fileName = QMCCalculationDirectory * "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/U$(U)_mu$(mu)_B$(Beta)_L$(q)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).hdf5"
+fileName = string(QMCCalculationDirectory, "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)_kSteps$(kSteps)/U$(U)_mu$(mu)_B$(Beta)_q$(q)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)_kSteps$(kSteps)_DMFT.hdf5")
+#fileName = string(QMCCalculationDirectory, "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)_kSteps$(kSteps)_testSIW/DMFT_1.hdf5")
 
 
 f = h5open(fileName, "r")
@@ -26,6 +27,11 @@ RealPart = [real(siw[800:1200])]                                #apparently Real
 ImagPart = [imag(siw[800:1200])]
 MatsubaraFreq = Frequencies[800:1200]
 
+
+
+
 vv = [MatsubaraFreq RealPart[1] ImagPart[1]]
 
-writedlm(QMCCalculationDirectory + "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)/self-en_wim_QMC-U$(U)_B$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime).csv", vv)
+outputName = string(QMCCalculationDirectory, "/finalQMC_U$(U)_B_$(Beta)_q$(q)_mu$(mu)_t$(t)_tPri$(tPrime)_tPriPri$(tPrimePrime)_kSteps$(kSteps)/self-en_wim_QMC_1.csv")
+
+writedlm(outputName, vv)

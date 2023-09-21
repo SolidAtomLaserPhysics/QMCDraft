@@ -9,7 +9,6 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
   real(kind=8), parameter :: t=0.250d0
   real(kind=8), parameter :: t1= 0.0d0
   real(kind=8), parameter :: t2= 0.0d0
-  !real(kind=8), parameter :: B=1.0d0/3.0d0
 
   complex(kind=8), parameter :: Xi=dcmplx(0,1.0d0)
 
@@ -53,7 +52,8 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
 
   !start Sampling of kx and ky in the better way (14.3.23)
   kstepsX = ksteps
-  kstepsY = ksteps/q                                                         !Maybe change this .................
+  kstepsY = ksteps                                                         !Maybe change this .........  if kstepsY = ksteps/q then have same Genauigkeit, but less steps. 
+                                                                           !maybe better to have better Genauigkeit by kstepsY = ksteps since exp(k*q) oscillates more
   dkx = (2 * Pi)/dfloat(kstepsX)
   dky = (2 * Pi)/dfloat(kstepsY * q)                                 !Make sure to have float division 
 
@@ -110,13 +110,13 @@ program generate_hofstadter_dispersion_matrix_for_w2dynamics
       do i = 1, q									!last iterate over i and j, so over the matrix indices from 0 to (q-1), i is row, j is column
             do j = 1, q
                if (i == j) then
-                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j)  + 2 * t2 * cos(2* (kx + (i-1) * (2 * pi * B)))		!diagonale
+                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j)  + 2 * t2 * cos(2*kx + (i-1) * (4 * pi * B))		!diagonale
                END IF
                if (((i == q) .and. (j == 2)) .or. ((i == q - 1) .and. (j == 1))) then
-                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j) + t2*exp(- 2*Xi*ky*q)									!bottom left
+                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j) + t2*exp(- Xi*ky*q)									!bottom left
                END IF
                if (((i == 1) .and. (j == q - 1)) .or. ((i == 2) .and. (j == q))) then
-                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j) + t2*exp(2*Xi*ky*q)									!top right
+                  TPrimePrimeMatrix(i,j) = TPrimePrimeMatrix(i,j) + t2*exp(Xi*ky*q)									!top right
                END IF
                !(q > 2) since do not have this for q == 2, but in q = 3 have this in corner with other term
                if (((i == (j + 2)) .or. (i == (j - 2))) .and. (q > 2)) then									

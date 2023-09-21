@@ -10,6 +10,7 @@ changes the submit script to 5 Nodes for the calculation
 def createDirectories(path):
     if not os.path.exists(path):                                  #make directory if not exists already
         os.mkdir(path)
+        os.mkdir(path + "/hdf5BackupFolder")
 
 
 def createParameters(u, mu, beta, q, t, tPri, tPriPri, kSteps, QMCDraftDirectory, QMCCalculationDirectory):
@@ -20,9 +21,9 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, kSteps, QMCDraftDirectory
             data[2] = "NAt             = 3 #q des Magnetfeldes p/q      \n"
             data[5] = "beta            = {} #-> In Einheiten 1/t.     \n".format(beta)  
             data[7] = "mu              = {}         \n".format(mu) 
-            data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri)
-            data[11] = "DMFTsteps       = 20 #-> Anzahl der DMFT loops     \n"
-            data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri)
+            data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_kSteps{}DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri, kSteps)
+            data[11] = "DMFTsteps       = 30 #-> Anzahl der DMFT loops     \n"
+            data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_kSteps{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri, kSteps)
             data[23] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[31] = "Udd             = {} #-> Hubbard U     \n".format(u)
@@ -39,7 +40,7 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, kSteps, QMCDraftDirectory
             data[5] = "beta            = {} #-> In Einheiten 1/t.     \n".format(beta)  
             data[7] = "mu              = {}         \n".format(mu) 
             data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri)
-            data[11] = "DMFTsteps       = 20 #-> Anzahl der DMFT loops     \n"
+            data[11] = "DMFTsteps       = 30 #-> Anzahl der DMFT loops     \n"
             data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri)
             data[23] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
@@ -47,7 +48,25 @@ def createParameters(u, mu, beta, q, t, tPri, tPriPri, kSteps, QMCDraftDirectory
             data[35] = "Udd             = {} #-> Hubbard U     \n".format(u)
             data[41] = "Nmeas           = 1e6   \n"
             data[42] = "NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen. \n"
+        with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}_kSteps{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri, kSteps), 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+    if q == 9:
+        with open(QMCDraftDirectory + '/Parameters_Q9.in', 'r', encoding='utf-8') as file:
+            data = file.readlines()
     
+            data[2] = "NAt             = 9 #q des Magnetfeldes p/q      \n"
+            data[5] = "beta            = {} #-> In Einheiten 1/t.     \n".format(beta)  
+            data[7] = "mu              = {}         \n".format(mu) 
+            data[10] = "#fileold         = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT.hdf5 #-> Hier wird jede Iteration gespeichert. Von dort kann ich weiterrechnen.      \n".format(u, mu, beta, q, t, tPri, tPriPri)
+            data[11] = "DMFTsteps       = 30 #-> Anzahl der DMFT loops     \n"
+            data[14] = "FileNamePrefix  = U{}_mu{}_B{}_L{}_t{}_tPri{}_tPriPri{}_DMFT   \n".format(u, mu, beta, q, t, tPri, tPriPri)
+           # data[23] = "Udd             = {} #-> Hubbard U     \n".format(u)
+            #data[27] = "Udd             = {} #-> Hubbard U     \n".format(u)
+            #data[31] = "Udd             = {} #-> Hubbard U     \n".format(u)
+            #data[35] = "Udd             = {} #-> Hubbard U     \n".format(u)
+            #data[41] = "Nmeas           = 1e6   \n"
+            #data[42] = "NCorr           = 30 #-> Wie viele Schritte zwischen zwei Messungen. \n"
         with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}_kSteps{}/Parameters.in'.format(u,beta,q,mu,t,tPri,tPriPri, kSteps), 'w', encoding='utf-8') as file:
             file.writelines(data)
 
@@ -76,14 +95,14 @@ def createHamiltonian(q, QMCDraftDirectory, QMCCalculationDirectory,
 
 
 # can change running time and number of cores here
-def createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri, kSteps):
+def createSubmit(QMCDraftDirectory, QMCCalculationDirectory, u,beta,q,mu,t,tPri,tPriPri, kSteps, numberOfCores):
     with open(QMCDraftDirectory + '/submit_dmft_script', 'r', encoding='utf-8') as file:
         dataSubmit = file.readlines()
     
-        dataSubmit[1] = "#SBATCH -t 3:00:00           \n"
-        dataSubmit[2] = "#SBATCH -N 1   \n"
-        dataSubmit[4] = "#SBATCH -p standard96     \n"                                                        #Are in the testqueue now!
-        dataSubmit[16] = "mpirun -np 96 /home/hhpnhytt/w2dynamics/DMFT.py Parametrs.in      \n"
+        dataSubmit[1] = "#SBATCH -t 1:00:00           \n"
+        dataSubmit[2] = "#SBATCH -n {}   \n".format(numberOfCores)
+        dataSubmit[4] = "#SBATCH -p standard96     \n"                                                      
+        dataSubmit[12] = "mpirun -np {} /home/hhpnhytt/w2dynamics/DMFT.py Parameters.in      \n".format(numberOfCores)
     
     with open(QMCCalculationDirectory + '/finalQMC_U{}_B_{}_q{}_mu{}_t{}_tPri{}_tPriPri{}_kSteps{}/submit_dmft_script'.format(u,beta,q,mu,t,tPri,tPriPri, kSteps), 'w', encoding='utf-8') as file:
         file.writelines(dataSubmit)

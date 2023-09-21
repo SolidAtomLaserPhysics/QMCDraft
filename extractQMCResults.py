@@ -8,17 +8,16 @@ import os
 calls a Julia script in the Draft folder,
 that reads out the hdf5 file of each calculation and then prints out the self energies
 '''
-def extractSelfEnergy(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri):
-    os.chdir(QMCDraftDirectory)    
-    print(1)                  
-    os.system('julia readQMCSelfEnergyResults.jl {} {} {} {} {} {} {} {}'.format(u, beta, q, mu, t, tPri, tPriPri, QMCCalculationDirectory))
-    print(2)
+#TODO: ksteps implement
+def extractSelfEnergy(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri, kSteps):
+    os.chdir(QMCDraftDirectory)                  
+    os.system('julia readQMCSelfEnergyResults.jl {} {} {} {} {} {} {} {} {}'.format(u, beta, q, mu, t, tPri, tPriPri, kSteps, QMCCalculationDirectory))
         
 '''
 calls a Julia script in the Draft folder,
 that reads out the hdf5 file of each calculation and then prints out density
 '''
-def extractDensity(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri):
+def extractDensity(QMCCalculationDirectory, QMCDraftDirectory, u,beta,q,mu,t,tPri,tPriPri,kSteps):
     os.chdir(QMCDraftDirectory)                      
-    os.system('julia readQMCDensityResults.jl {} {} {} {} {} {} {} {}'.format(u, beta, q, mu, t, tPri, tPriPri, QMCCalculationDirectory))
+    os.system('julia readQMCDensityResults.jl {} {} {} {} {} {} {} {} {}'.format(u, beta, q, mu, t, tPri, tPriPri, kSteps, QMCCalculationDirectory))
 
